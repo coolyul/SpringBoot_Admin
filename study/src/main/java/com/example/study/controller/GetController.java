@@ -37,9 +37,7 @@ public class GetController {
     @GetMapping("/getMultiParameter")
     public SearchParam getMultiParameter(SearchParam searchParam){  // 안에 들어갈 파라미터가 엄청 많아질 때, 객체로 받아올 수 있음. 모델패키지!
 
-        System.out.println(searchParam.getAccount());
-        System.out.println(searchParam.getEmail());
-        System.out.println(searchParam.getPage());
+
 
         // GetParameter를 받아서 문자열을 리턴하는 것을 공부함.
         // 근데 보통 JSON형태로 함. 밑에가 제이슨 형태
