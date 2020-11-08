@@ -3,6 +3,12 @@ package com.example.study.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor      // Data부터 세 줄은 기본으로 가져가는 어노테이션!
 @Entity
+@ToString(exclude = {"orderDetailList", "partner"})
+@EntityListeners(AuditingEntityListener.class)
 public class Item {     // mysql에서 만들었던 컬럼과 똑같이 만들어주면 됨.
 
     @Id         // 기본키니까 해주기
@@ -34,15 +42,28 @@ public class Item {     // mysql에서 만들었던 컬럼과 똑같이 만들�
 
     private LocalDateTime unregisteredAt;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
+    @CreatedBy
     private String createdBy;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @LastModifiedBy
     private String updatedBy;
 
-    private Long partnerId;
+
+    // item N : Partner 1
+    @ManyToOne
+    private Partner partner;
+//    private Long partnerId;
+
+
+    // item 1 : OrderDetail N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")       // orderDetail의 item
+    private List<OrderDetail> orderDetailList;
 
 
 

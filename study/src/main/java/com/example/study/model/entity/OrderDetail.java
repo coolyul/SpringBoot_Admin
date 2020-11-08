@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,7 +19,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@ToString(exclude = {"user", "item"}) =>
+@ToString(exclude = {"orderGroup", "item"})
+@EntityListeners(AuditingEntityListener.class)
 public class OrderDetail {
 
     @Id
@@ -23,21 +29,48 @@ public class OrderDetail {
 
     private String status;
 
-    private LocalDateTime orderAt;
-
     private LocalDateTime arrivalDate;
 
     private Integer quantity;
 
     private BigDecimal totalPrice;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
+    @CreatedBy
     private String createdBy;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @LastModifiedBy
     private String updatedBy;
+
+
+    // OrderDetail N : item 1    아이템 하나마다 주문이 여러개 있을 수 있음
+    @ManyToOne
+    private Item item;
+//    private Long itemId;
+
+
+
+    // OrderDetail N : OrderGroup 1
+    @ManyToOne
+    private OrderGroup orderGroup;      // orderDetail의 MappedBy와 일치!
+//    private Long orderGroupId;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

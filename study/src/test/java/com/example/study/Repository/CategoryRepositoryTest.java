@@ -18,8 +18,8 @@ public class CategoryRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create(){       // 카테고리 생성. createdAt, createdBy notnull!
-        String type = "COMPUTER";
-        String title = "컴퓨터";
+        String type = "PHONE";
+        String title = "핸드폰";
         LocalDateTime createdAt = LocalDateTime.now();
         String createdBy = "AdminServer";
 

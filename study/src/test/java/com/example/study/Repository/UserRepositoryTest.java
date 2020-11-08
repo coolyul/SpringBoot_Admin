@@ -35,14 +35,15 @@ public class UserRepositoryTest extends StudyApplicationTests {
 //        // JPA 장점은 쿼리문 안쓰고 오브젝트로 관리할 수 있게끔 해준다!
 //
 
-        String account = "Test02";
-        String password = "Test02";
+        String account = "Test03";
+        String password = "Test03";
         String status = "REGISTERED";
-        String email = "Test02@gmail.com";
-        String phoneNumber = "010-1111-2222";
+        String email = "Test03@gmail.com";
+        String phoneNumber = "010-1111-3333";
         LocalDateTime registeredAt = LocalDateTime.now();
         LocalDateTime createdAt = LocalDateTime.now();
         String createdBy = "AdminServer";
+
 
         // 새 객체 만들고 정보 저장해주기
         User user = new User();
@@ -53,8 +54,17 @@ public class UserRepositoryTest extends StudyApplicationTests {
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+
+        // User 테이블에 @Builder 어노테이션을 추가하면 이렇게 생성자를 4개만 쓰는 객체를 만들 수 있다! 이거 많이들 씀.
+        User u = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .build();
+
+//        user.setCreatedAt(createdAt);
+//        user.setCreatedBy(createdBy);
 
         User newUser = userRepository.save(user);
 
@@ -89,6 +99,41 @@ public class UserRepositoryTest extends StudyApplicationTests {
     public void read(){
 
         User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-1111");
+
+        // 업데이트를 하려면 원래 아래와 같이 하나하나 다 추가해줘야 하는데 쉽게하는법??
+//        user.setEmail();
+//        user.setAccount();
+
+        // 체인 패턴으로 값을 바꿔서 업데이트 할 수 있음!  객체 찾은 후 업데이트하는 방식.
+        user
+                .setEmail("")
+                .setPhoneNumber("")
+                .setPassword("");
+
+        if(user != null) {
+            user.getOrderGroupList().stream().forEach(orderGroup -> {
+
+                System.out.println("------------------주문 묶음------------------" );
+                System.out.println("수령지 : " + orderGroup.getRevAddress());
+                System.out.println("수령인 : " + orderGroup.getRevName());
+                System.out.println("총 가격 : " + orderGroup.getTotalPrice());
+                System.out.println("총 수량 : " + orderGroup.getTotalQuantity());
+
+                System.out.println("------------------주문 상세------------------" );
+
+                orderGroup.getOrderDetailList().forEach(orderDetail ->  {
+
+                    System.out.println("파트너사 이름 : " + orderDetail.getItem().getPartner().getName());
+                    System.out.println("파트너사 카테고리 : " + orderDetail.getItem().getPartner().getCategory().getTitle());
+                    System.out.println("주문 상품 : " + orderDetail.getItem().getName());
+                    System.out.println("고객센터 번호 : " + orderDetail.getItem().getPartner().getCallCenter());
+                    System.out.println("주문의 상태 : " + orderDetail.getStatus());
+                    System.out.println("도착 예정 일자 : " + orderDetail.getArrivalDate());
+
+
+                });
+            });
+        }
         Assertions.assertNotNull(user);
 
 
