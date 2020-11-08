@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")     // localhost:8080/api   메소드끼리는 매핑주소 중복x 클래스끼리는 중복o
 public class PostController {
 
-    // post는 HTML <Form> 태그에 사용, 혹은 ajax 검색에 사용됨
+    // post는 HTML <Form> 태그(정보 입력이나 제출하게 하는 태그. 회원가입, 로그인 등등)에 사용, 혹은 ajax 검색에 사용됨
     // http통신할 때 post의 body에 데이터를 집어넣어 보내겠다! -> @RequestBody에 searchparam 값들을 넣어주세요
     // requestBody 할 때 포스트방식 - json, xml, multipart-form , text-plain 형태 등등 지원
     // JSON 형태로 들어온 데이터를 처리할 때! POST를 씀. 혹은 주소창에 사용자 요청 안나오게 함
 
     // @RequestMapping(method = requestMethod.Post, path = "/postMethod") 이게 결국 @PostMapping("/postMethod"))
-    @PostMapping(value = "/postMethod")
+    @PostMapping("/postMethod")
     public SearchParam postMethod(@RequestBody SearchParam searchParam){
 
         // 개발하면서 테스트하기 위해서는 RestClient로 Request요청하고 Test하는 방법이 있음.

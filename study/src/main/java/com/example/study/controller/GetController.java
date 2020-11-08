@@ -21,6 +21,7 @@ public class GetController {
     // GetMapping은 RequestMapping과는 다르게 메소드 타입을 설정하지 않아도 됨.
     @GetMapping("/getParameter")    // localhost:8080/api/getParameter?id=1234&pw=abcd 주소 뒤 ?로부터 시작
     public String getParameter(@RequestParam String id, @RequestParam(name = "password") String pwd){
+
         // RequestParam은 주소창에서 parameter값 받아올 것을 지정해주는 것.
         // RequestParam(name = "password") 는 리퀘스트 파람은 패스워드라는 이름으로 들어올거야! 라고 알려주는것.
         // 주소창에 id=1234&password=abcd 라고 해도 String pwd라고 알아들음

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data       // 객체로 사용해줄거기때문에 (엔티티) 써줌
 @AllArgsConstructor     // 모든 생성자 만들어줄수있는 어노테이션
@@ -22,9 +23,17 @@ public class User {
 //    @Column(name = "account") 컬럼 이름이 내가 만들어준것과 다르면 이거 해주면 됨.
     private String account;
 
+    private String password;
+
+    private String status;
+
     private String email;
 
     private String phoneNumber;
+
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime unregisteredAt;
 
     private LocalDateTime createdAt;
 
@@ -35,4 +44,12 @@ public class User {
     private String updatedBy;
 
 
+
+
+//      연습용
+//    // 유저 입장에서 자신은 1, 주문내역은 N ( 1:N )
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")       // 여기서 user는 Orderdetail 변수 이름과 같아야함
+//
+//    // USer라는 클래스에서는 OrderDetail 안의 User라는 변수 안에 매칭시키겠ㄷ
+//    private List<OrderDetail> orderDetailList;
 }
