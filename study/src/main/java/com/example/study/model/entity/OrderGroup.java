@@ -1,9 +1,8 @@
 package com.example.study.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.example.study.model.enumclass.OrderType;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -21,6 +20,8 @@ import java.util.List;
 @Entity
 @ToString(exclude = {"user", "orderDetailList"})
 @EntityListeners(AuditingEntityListener.class)
+@Builder
+@Accessors(chain = true)
 public class OrderGroup {
 
 
@@ -30,7 +31,8 @@ public class OrderGroup {
 
     private String status;
 
-    private String orderType;  //일괄이냐 개별발송이냐
+    @Enumerated(EnumType.STRING)
+    private OrderType orderType;  //일괄이냐 개별발송이냐
 
     private String revAddress; // 받는 주소
 

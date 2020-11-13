@@ -1,6 +1,7 @@
 package com.example.study.controller;
 
 import com.example.study.model.SearchParam;
+import com.example.study.model.network.Header;
 import org.springframework.web.bind.annotation.*;
 
 // 접속을 하려면 주소를 받아와야 하므로 컨트롤러 패키지 안에 겟 컨트롤러 클래스 생성.
@@ -47,5 +48,13 @@ public class GetController {
         // 객체를 리턴! 그러면 자동으로 제이슨 형태로 변환되어서 리턴됨. 제이슨 내장되어있음! 스프링부트
 
         return searchParam;
+    }
+
+    @GetMapping("/header")
+    public Header getHeader(){
+
+        // 헤더 오브젝트 리턴 시킬거구 리절트 코드와 디스크립션이 내려갈것!
+        // {resultCode : "OK" , "description" : "OK" }이거 예상하고 만듦!
+        return Header.builder().resultCode("OK").description("OK").build();
     }
 }

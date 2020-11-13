@@ -2,13 +2,13 @@ package com.example.study.Repository;
 
 import com.example.study.StudyApplicationTests;
 import com.example.study.model.entity.OrderGroup;
+import com.example.study.model.enumclass.OrderType;
 import com.example.study.repository.OrderGroupRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -24,7 +24,7 @@ public class OrderGroupRepositoryTest extends StudyApplicationTests {
         OrderGroup orderGroup = new OrderGroup();
 
         orderGroup.setStatus("Complete");
-        orderGroup.setOrderType("All");
+        orderGroup.setOrderType(OrderType.ALL);
         orderGroup.setRevAddress("서울시 강남구");
         orderGroup.setRevName("홍길동");
         orderGroup.setPaymentType("Card");

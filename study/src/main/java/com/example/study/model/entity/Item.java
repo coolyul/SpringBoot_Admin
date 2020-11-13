@@ -1,9 +1,8 @@
 package com.example.study.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.example.study.model.enumclass.ItemStatus;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -11,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,13 +20,16 @@ import java.util.List;
 @Entity
 @ToString(exclude = {"orderDetailList", "partner"})
 @EntityListeners(AuditingEntityListener.class)
+@Builder
+@Accessors(chain = true)
 public class Item {     // mysql에서 만들었던 컬럼과 똑같이 만들어주면 됨.
 
     @Id         // 기본키니까 해주기
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // mysql의 strategy!
     private Long id;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
 
     private String name;
 
@@ -34,7 +37,7 @@ public class Item {     // mysql에서 만들었던 컬럼과 똑같이 만들�
 
     private String content;
 
-    private Integer price;
+    private BigDecimal price;
 
     private String brandName;     // NotNull 아니어도 됨. 부가설명!
 
