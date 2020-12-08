@@ -1,6 +1,6 @@
 # Admin Project
 
-SpringBoot 를 이용하여 만든 물품 주문 Admin 사이트의 Back-end 부분 구현 코드입니다.
+SpringBoot 를 이용하여 만든 물품 주문 Admin 사이트의 Back-end 부분 구현 코드입니다.  
 사용자 정보, 주문 정보, 주문 아이템의 상세, 상품 아이템의 파트너사 정보 등을 구현하였습니다.
 
 localhost:8080/pages 
